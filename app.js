@@ -8,7 +8,6 @@ app.use(express.urlencoded());
 
 app.use(express.static('public'));
 
-
 /// welcome page 
 ///====================================================================///
 app.get("/",(req,res) =>{
@@ -17,9 +16,14 @@ app.get("/",(req,res) =>{
 /// signup post method 
 ///====================================================================///
 app.post("/Signup",(req,res) =>{
-    console.log(req.body);
-    ////validate 
-    res.redirect(301,'/reservation');
+    var name = req.body.username
+     ////validate 
+    if (/^[A-Za-z]*$/.test(name)==true){
+        console.log('true');
+        res.redirect(301,'/reservation');
+    }else{
+        res.end('invalid credtantial');
+    }
 });
 /// Login post method
 ///====================================================================///

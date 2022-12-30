@@ -1,152 +1,75 @@
-<html lang="en" >
+<html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Airport</title>
-  <link rel="stylesheet" href="stylesbooking.css">
-  <script src="script.js"></script>
+    <meta charset="UTF-8">
+    <title>Airport</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
 
 </head>
+
 <body class="bdy2">
-<div class="wrap" data-pos="0">
-    <div class="headbar">
-        <i class="zmdi zmdi-arrow-left btnBack"></i> <span>Flight Booking App</span>
-    </div>
-    <div class="header">
-        <div class="bg"></div>
-        <div class="filter"></div>
-        <div class="title">
-            <div class="fromPlace">
-                <span>D</span><span>U</span><span>B</span>
-            </div>
-            <span class="separator"><i class="zmdi zmdi-airplane"></i></span>
-            <div class="toPlace">
-                <span>M</span><span>R</span><span>S</span>
-            </div>
+    <div class="formbold-main-wrapper">
+        <!-- Author: FormBold Team -->
+        <!-- Learn More: https://formbold.com -->
+        <div class="formbold-form-wrapper">
+            <form action="/results" method="POST">
+                <div class="flex flex-wrap formbold--mx-3">
+                    <div class="w-full sm:w-half formbold-px-3">
+                        <div class="formbold-mb-5">
+                            <label for="fName" class="formbold-form-label"> First Name </label>
+                            <input type="text" name="fName" id="fName" placeholder="First Name"
+                                class="formbold-form-input" />
+                        </div>
+                    </div>
+                    <div class="w-full sm:w-half formbold-px-3">
+                        <div class="formbold-mb-5">
+                            <label for="lName" class="formbold-form-label"> Last Name </label>
+                            <input type="text" name="lName" id="lName" placeholder="Last Name"
+                                class="formbold-form-input" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formbold-mb-5">
+                    <label for="guest" class="formbold-form-label">
+                        How many guest are you bringing?
+                    </label>
+                    <input type="number" name="guest" id="guest" placeholder="5" class="formbold-form-input" />
+                </div>
+
+                <div class="flex flex-wrap formbold--mx-3">
+                    <div class="w-full sm:w-half formbold-px-3">
+                        <div class="formbold-mb-5 w-full">
+                            <label for="date" class="formbold-form-label"> Date </label>
+                            <input type="date" name="date" id="date" class="formbold-form-input" />
+                        </div>
+                    </div>
+                    <div class="w-full sm:w-half formbold-px-3">
+                        <div class="formbold-mb-5">
+                            <label for="time" class="formbold-form-label"> Time </label>
+                            <input type="time" name="time" id="time" class="formbold-form-input" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex formbold-mb-5">
+                    <div class="flex">
+                        <input type="radio" name="radio1" id="radioButton1" class="formbold-radio" />
+                        <label for="radioButton1" class="formbold-radio-label"> Yes </label>
+                    </div>
+                    <div class="flex">
+                        <input type="radio" name="radio1" id="radioButton2" class="formbold-radio" />
+                        <label for="radioButton2" class="formbold-radio-label"> No </label>
+                    </div>
+                </div>
+
+                <div>
+                    <button class="formbold-btn" type="submit">Submit</button>
+                </div>
+            </form>
         </div>
-        <div class="map"></div>
     </div>
-
-    <div class="content">
-        <section>
-            <div class="form">
-                <div class="control select">
-                    <div class="control-head">
-                        <i class="zmdi zmdi-flight-takeoff"></i>
-                        <span class="close"><i class="zmdi zmdi-close"></i></span>
-                        <div>
-                            <h6>From</h6>
-                            <span class="airport-name" data-role="from">DUB, Dublin Airport</span>
-                        </div>			
-                    </div>
-                    <div class="control-body">
-                        <ul class="select-index"></ul>
-                        <div class="nano">
-                            <div class="nano-content">
-                                <ul class="select-data"></ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="control select">
-                    <div class="control-head">
-                        <i class="zmdi zmdi-flight-land"></i>
-                        <span class="close"><i class="zmdi zmdi-close"></i></span>
-                        <div>
-                            <h6>To</h6>
-                            <span class="airport-name" data-role="to">MRS, Marseille Provence Airport</span>
-                        </div>			
-                    </div>
-                    <div class="control-body">
-                        <ul class="select-index"></ul>
-                        <div class="nano">
-                            <div class="nano-content">
-                                <ul class="select-data"></ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="control dateinput">
-                    <div class="control-head">
-                        <i class="zmdi zmdi-calendar"></i>
-                        <span class="close"><i class="zmdi zmdi-close"></i></span>
-                        <div class="control-item">
-                            <h6>Depar</h6>
-                            <span>MON, 8 May</span>
-                        </div>
-                        <div class="control-item">
-                            <h6>Return</h6>
-                            <span>One Way</span> <!--Quitar si no se selecciona-->
-                        </div>
-                    </div>
-                    <div class="control-body">
-                        <div class="info-message">
-                            <i class="zmdi zmdi-info"></i>
-                            <!-- <span>Select the depar date then the return date if you need a round trip ticket</span> -->
-                            <span>By the moment theres only One Way tickets, thanks.</span>
-                        </div>
-                        <div class="calendar">
-                            <div class="month">
-                                <i class="zmdi zmdi-chevron-left"></i>
-                                <span>May</span>
-                                <i class="zmdi zmdi-chevron-right"></i>
-                            </div>
-                            <div class="week">
-                                <span>S</span>
-                                <span>M</span>
-                                <span>T</span>
-                                <span>W</span>
-                                <span>T</span>
-                                <span>F</span>
-                                <span>S</span>
-                            </div>
-                            <div class="days"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="control radio passengers">
-                    <i class="zmdi zmdi-accounts"></i>
-                    <div class="control-item">
-                        <h6>Passengers</h6>
-                        <label>
-                            <input type="radio" name="passengers" value="0" checked="checked">
-                            <div><span>1</span>&times;<i class="zmdi zmdi-male-alt"></i><small>Adults</small></div>
-                        </label>
-                        <label>
-                            <input type="radio" name="passengers" value="1">
-                            <div><span>0</span>&times;<i class="zmdi zmdi-face"></i><small>Kids</small></div>
-                        </label>
-                        <label>
-                            <input type="radio" name="passengers" value="2">
-                            <div><span>0</span>&times;<i class="zmdi zmdi-walk"></i><small>Elders</small></div>
-                        </label>
-                    </div>
-                    <section class="spinner">
-                        <button data-action="plus"><i class="zmdi zmdi-plus"></i></button>
-                        <button data-action="minus"><i class="zmdi zmdi-minus"></i></button>
-                    </section>
-                </div>
-                <div class="control radio">
-                    <i class="zmdi zmdi-airline-seat-recline-extra"></i>
-                    <div class="control-item">
-                        <h6 style="margin-bottom: 8px">Class</h6>
-                        <label>
-                            <input type="radio" name="seat" value="Economy" checked="checked">
-                            <span>Economy</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="seat" value="Business">
-                            <span>Business</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="seat" value="First Class">
-                            <span>First Class</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="control">
-                    <button>
-                        <a class="btn4" href="flightresults.html">Search Flights</a></button>
-                </div>
-
-            
+   
+    
 </body>

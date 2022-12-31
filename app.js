@@ -2,33 +2,50 @@ const express  = require('express');
 
 const app = express();
 
-app.use(express.json());
+const bodyParser = require('body-parser');
 
-app.use(express.urlencoded());
+app.use(bodyParser.json());
+
+app.use(bodyParser.urlencoded({extended:true}));
 
 app.use(express.static('public'));
+
+const {db} = require('./firebase.js');
 
 /// welcome page 
 ///====================================================================///
 app.get("/",(req,res) =>{
-    res.sendFile(__dirname+'/public/login.html');
+    res.sendFile(__dirname+'/public/test.html');
 });
 /// signup post method 
 ///====================================================================///
-app.post("/Signup",(req,res) =>{
+app.post("/Signup",async (req,res) =>{
     var name = req.body.username
      ////validate 
     if (/^[A-Za-z]*$/.test(name)==true){
-        console.log('true');
-        res.redirect(301,'/reservation');
+        console.log('signed');
+        console.log(req)
+        const id = req.body.email;
+        userJson = {
+            email : req.body.email,
+            pass : req.body.password,
+            name : req.body.username,
+            phone : req.body.number,
+            country : req.body.country
+        }
+        const data = await db.collection("users").doc(id).set(userJson);
+        res.status(200).send(data);
+        ///res.redirect(301,'/reservation');
     }else{
-        res.end('invalid credtantial');
+        res.send(`<p>
+            invalid
+        <p>`);
     }
 });
 /// Login post method
 ///====================================================================///
 app.post("/Login",(req,res) =>{
-    console.log(req.body);
+    if (req.body.email ==)
     /// Authenticate with dataset 
     /// redirect to reservation page 
     res.redirect(301, '/reservation');

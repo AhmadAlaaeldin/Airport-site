@@ -12,75 +12,102 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static('public'));
 
-const { db } = require('./firebase.js');
+///const { db } = require('./firebase.js');
 
 app.set("views", path.join(__dirname, "views"));
 
 app.set("view engine", "pug");
 
+const {collection1, collection2} = require("./mongodb")
+
+
 /// welcome page 
 ///====================================================================///
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + '/public/login.html');
+    res.render('login');
 });
-/// signup post method 
+//=====================================================================///
+/// signup post method
+/// validate input fields 
+/// save data to database 
+/// redirect to reservation  
 ///====================================================================///
 app.post("/Signup", async (req, res) => {
-    const id = req.body.email;
-    userJson = {
-        email: req.body.email,
-        pass: req.body.password,
+
+    const data = {
         name: req.body.username,
-        age: req.body.age,
-        phone: req.body.number,
-        country: req.body.country
+        email: req.body.email,
+        password: req.body.password,
+        country: req.body.country,
+        number: req.body.number
     }
-    const data = await db.collection("users").doc(id).set(userJson);
-    //console.log(userJson);
-    res.status(200).send(data);
-    ///res.redirect(301, '/reservation');
+
+    await collection1.insertMany([data])
+
+    res.redirect(301, '/Booking');
 });
-/// Login post method
+////===================================================================///
+/// Login post method 
+/// validate input fields 
+/// check data between user and database 
+/// redirect to reservation  
 ///====================================================================///
-app.post("/Login", (req, res) => {
-    ///if (req.body.email ==)
-    /// Authenticate with dataset 
-    /// redirect to reservation page 
-    res.redirect(301, '/reservation');
+app.post("/Login", async (req, res) => {
+
+    try {
+        const user = await collection.findOne({ email: req.body.email })
+
+        if (user.password === req.body.password) {
+            res.redirect(301, "Booking");
+        }
+
+    }
+    catch { }
+
 });
 /// reservation page 
+/// user search for flight tickets 
 ///====================================================================///
-app.get("/reservation", (req, res) => {
-    res.sendFile(__dirname + '/public/reserve.html');
+app.get("/Booking", (req, res) => {
+    res.render("Booking");
 });
 /// flight results page 
 ///====================================================================///
 app.post("/results", (req, res) => {
     const airlines = ['Qatar Airways', 'Fly Emirates',
         'Egyptair', 'Saudi Airways', 'Turkish Airlines'];
-    
-    res.render("index", { from: '123', to: req.body.airport-to ,airline:"air" ,price:12 });
+
+   const data = {
+        origin: req.body.airport-from,
+        destination: req.body.airport-to,
+        dept: req.body.dept-date,
+        return: req.body.return-date,
+        airline: airlines[Math.floor(Math.random() * airlines.length)],
+        price: Math.floor(Math.random() * 10) + 1
+    }
+    /// render test elemnts 
+    res.render("results", {
+        airlinev: 'home',
+        originv: "to",
+        destinationv: "usa",
+        pricev: 112
+    })
+
 });
 /// flight info page 
 ///====================================================================///
 app.get("/FlightInfo", (req, res) => {
-    res.sendFile(__dirname + '/public/info.html');
+    res.render("info")
 });
+
+/// user book 
 ///====================================================================///
-app.post("/book", async (req, res) => {
-    userJson = {
-        from: req.body.email,
-        to: req.body.password,
-        deptdate: req.body.dept-date,
-        returndate : req.body.return-date
-    }
-    const data = await db.collection("Flights").doc(id).set(userJson);
-    //console.log(userJson);
-    res.status(200).send(data);
+app.post("/booked", async (req, res) => {
+    await collection2.insertMany([data]) 
 });
 //=========================================///////////////////
 app.get("/Profile", (req, res) => {
-    res.sendFile(__dirname + '/public/user.html');
+
 });
 /// listening port  
 ///====================================================================///

@@ -25,35 +25,35 @@ head
             .form-group
               .form-checkbox
                 label(for='roundtrip')
-                  input#roundtrip(type='radio' name='flight-type')
+                  input#roundtrip(type='radio' name='roundtrip')
                   span
                   | Roundtrip
                 label(for='one-way')
-                  input#one-way(type='radio' name='flight-type')
+                  input#one-way(type='radio' name='oneway')
                   span
                   | One way
                 label(for='multi-city')
-                  input#multi-city(type='radio' name='flight-type')
+                  input#multi-city(type='radio' name='multicity')
                   span
                   | Multi-City
             .row
               .col-md-6
                 .form-group
                   span.form-label Flying from
-                  input.form-control(type='text' name='airport-from' placeholder='City or airport')
+                  input.form-control(name='from' type='text' placeholder='City or airport')
               .col-md-6
                 .form-group
                   span.form-label Flyning to
-                  input.form-control(type='text' name='airport-to' placeholder='City or airport')
+                  input.form-control(name='to' type='text' placeholder='City or airport')
             .row
               .col-md-3
                 .form-group
                   span.form-label Departing
-                  input.form-control(name='dept-date' type='date' required='')
+                  input.form-control(name='debtDate' type='date' required='')
               .col-md-3
                 .form-group
                   span.form-label Returning
-                  input.form-control(name='return-date' type='date' required='')
+                  input.form-control(name='returnDate' type='date' required='')
               .col-md-2
                 .form-group
                   span.form-label Adults (18+)
@@ -81,4 +81,4 @@ head
                   span.select-arrow
               .col-md-3
                 .form-btn
-                  button.submit-btn(type='submit') search
+                  button.submit-btn(type='submit') Show Flights

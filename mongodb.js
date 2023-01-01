@@ -1,6 +1,6 @@
 const mongoose  = require("mongoose")
 mongoose.set('strictQuery', true);
-mongoose.connect("mongodb://localhost:27017/FlightBooking")
+mongoose.connect("mongodb://localhost:27017")
 .then(()=>{
     console.log("mongo db connected");
 })
@@ -34,7 +34,7 @@ const UserSchema  = new mongoose.Schema({
 
 
 const TicketSchema  = new mongoose.Schema({
-    name:{
+    airline:{
         type:String,
         required : true
     },
@@ -42,24 +42,24 @@ const TicketSchema  = new mongoose.Schema({
         type:String,
         required : true
     },
-    Dest:{
+    destination:{
         type:String,
         required : true
     },
-    debt:{
+    Debarture_Date:{
         type:String,
         required : true
     },
-    return:{
+    return_Date:{
         type:String,
         required : true
     },
     ticketid:{
-        type:Int16Array,
+        type: String,
         required : true
     },
     price:{
-        type:Int16Array,
+        type:String,
         required : true
     }
 })

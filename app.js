@@ -18,7 +18,7 @@ app.set("views", path.join(__dirname, "views"));
 
 app.set("view engine", "pug");
 
-const {collection1, collection2} = require("./mongodb")
+const { collection1, collection2 } = require("./mongodb")
 
 
 /// welcome page 
@@ -26,6 +26,7 @@ const {collection1, collection2} = require("./mongodb")
 app.get("/", (req, res) => {
     res.render('login');
 });
+
 //=====================================================================///
 /// signup post method
 /// validate input fields 
@@ -42,9 +43,10 @@ app.post("/Signup", async (req, res) => {
         number: req.body.number
     }
 
-    await collection1.insertMany([data])
+    /// await collection1.insertMany([data])
 
     res.redirect(301, '/Booking');
+    ///res.render('Booking');
 });
 ////===================================================================///
 /// Login post method 
@@ -55,8 +57,7 @@ app.post("/Signup", async (req, res) => {
 app.post("/Login", async (req, res) => {
 
     try {
-        const user = await collection.findOne({ email: req.body.email })
-
+        const user = await collection1.findOne({ email: req.body.email })
         if (user.password === req.body.password) {
             res.redirect(301, "Booking");
         }
@@ -76,38 +77,43 @@ app.get("/Booking", (req, res) => {
 app.post("/results", (req, res) => {
     const airlines = ['Qatar Airways', 'Fly Emirates',
         'Egyptair', 'Saudi Airways', 'Turkish Airlines'];
-
-   const data = {
-        origin: req.body.airport-from,
-        destination: req.body.airport-to,
-        dept: req.body.dept-date,
-        return: req.body.return-date,
-        airline: airlines[Math.floor(Math.random() * airlines.length)],
-        price: Math.floor(Math.random() * 10) + 1
+    var data = []
+    console.log(req.body.from)
+    for (let i = 0; i < 10; i++){
+        var air = airlines[Math.floor(Math.random()*airlines.length)];
+        var pp =  Math.floor(Math.random() * 5000) + 1000;
+        data.push({
+            //d : 1,
+            airline : air,
+            origin: req.body.from,
+            destination: req.body.to, 
+            Debarture_Date: req.body.date,
+            return_Date: req.body.date,
+            price: pp
+            //Gate : 'c7'
+        })
     }
-    /// render test elemnts 
     res.render("results", {
-        airlinev: 'home',
-        originv: "to",
-        destinationv: "usa",
-        pricev: 112
-    })
-
+        resultes: data
+    });
+    
 });
 /// flight info page 
 ///====================================================================///
 app.get("/FlightInfo", (req, res) => {
-    res.render("info")
+    res.render("info");
 });
 
 /// user book 
 ///====================================================================///
 app.post("/booked", async (req, res) => {
     await collection2.insertMany([data]) 
+    res.render("info")
+    console.log(req.body);
 });
 //=========================================///////////////////
 app.get("/Profile", (req, res) => {
-
+    res.render('user');
 });
 /// listening port  
 ///====================================================================///

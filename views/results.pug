@@ -7,11 +7,15 @@ table.table.table-condensed.table-striped
     th AIRLINE
     th ORIGIN
     th DESTINATION
-    th PRICE
+    th DEPARTURE TIME
+    th
     tbody#table_data
-      tr
-        td h1  = airlinev  
-        td h1  = originv 
-        td h1  = destinationv 
-        td h1  = pricev 
- 
+      form(action='/booked' method='POST')
+       each result in resultes
+        tr
+            td #{result.airline}
+            td #{result.origin}
+            td #{result.destination}
+            td #{result.price}
+            td
+               button(type='submit' id=1) Book
